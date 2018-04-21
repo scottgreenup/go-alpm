@@ -38,8 +38,41 @@ type Package struct {
     ref *C.alpm_pkg_t
 }
 
+type PackageFrom int
+
+const (
+    PKG_SKIP PackageFrom = iota
+    PKG_FROM_FILE
+    PKG_FROM_LOCALDB
+    PKG_FROM_SYNCDB
+)
+
+func (p *Package) FileName() string {
+    return C.GoString(C.alpm_pkg_get_filename(p.ref))
+}
+
+func (p *Package) Base() string {
+    return C.GoString(C.alpm_pkg_get_base(p.ref))
+}
+
 func (p *Package) Name() string {
     return C.GoString(C.alpm_pkg_get_name(p.ref))
+}
+
+func (p *Package) Version() string {
+    return C.GoString(C.alpm_pkg_get_version(p.ref))
+}
+
+func (p *Package) Origin() PackageFrom {
+    return PackageFrom(C.alpm_pkg_get_origin(p.ref))
+}
+
+func (p *Package) Desc() string {
+    return C.GoString(C.alpm_pkg_get_desc(p.ref))
+}
+
+func (p *Package) URL() string {
+    return C.GoString(C.alpm_pkg_get_url(p.ref))
 }
 
 func (d *Database) packageList() (*list, error) {

@@ -25,6 +25,10 @@ func TestStandard(t *testing.T) {
     }
 
     for _, p := range packages {
-        fmt.Println(p.Name())
+        fmt.Printf("Name      : %s\n", p.Name())
+        fmt.Printf("Desc      : %s\n", p.Desc())
+        fmt.Printf("Base      : %s\n", p.Base())
+        fmt.Printf("Version   : %s\n", p.Version())
+        fmt.Printf("\n")
     }
 }
